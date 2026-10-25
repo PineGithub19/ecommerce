@@ -34,8 +34,8 @@ export const envSchema = z.object({
   // DB_POOL_IDLE_TIMEOUT_MS: z.coerce.number().default(30000),
 
   // // Throttler
-  // THROTTLE_TTL_MS: z.coerce.number().default(1000),
-  // THROTTLE_LIMIT: z.coerce.number().default(60),
+  THROTTLE_TTL_MS: z.coerce.number().default(1000),
+  THROTTLE_LIMIT: z.coerce.number().default(60),
 
   // // Email (SMTP)
   // SMTP_USER: z.email(),
