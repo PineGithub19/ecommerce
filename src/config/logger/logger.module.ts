@@ -1,7 +1,9 @@
 import { Module } from '@nestjs/common';
 import { ConfigModule, ConfigService } from '@nestjs/config';
+import { randomUUID } from 'crypto';
 import { IncomingMessage } from 'http';
 import { LoggerModule } from 'nestjs-pino';
+import { CORRELATION_ID_HEADER } from 'src/constants/correlation-id';
 
 @Module({
   imports: [
@@ -24,7 +26,15 @@ import { LoggerModule } from 'nestjs-pino';
                   },
                 }
               : undefined,
-            // TODO: add reqId
+
+            genReqId: (req, res) => {
+              const existing = req.headers[CORRELATION_ID_HEADER];
+              const id = existing ?? randomUUID();
+              req.headers[CORRELATION_ID_HEADER] = id;
+              res.setHeader(CORRELATION_ID_HEADER, id);
+              return id;
+            },
+
             // Hide fields that will be vulnerable to sensitive data exposure in logs
             redact: {
               paths: [
