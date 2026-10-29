@@ -1,15 +1,14 @@
 import { Module } from '@nestjs/common';
-import { ConfigModule, ConfigService } from '@nestjs/config';
+import { ConfigService } from '@nestjs/config';
 import { randomUUID } from 'crypto';
 import { IncomingMessage } from 'http';
 import { LoggerModule } from 'nestjs-pino';
-import { CORRELATION_ID_HEADER } from 'src/constants/correlation-id';
+import { CORRELATION_ID_HEADER } from 'src/shared/constants/correlation-id';
 
 @Module({
   imports: [
     LoggerModule.forRootAsync({
       // forRootAsync means config will be created via Dependency Injection (DI)
-      imports: [ConfigModule],
       inject: [ConfigService],
       useFactory: (configService: ConfigService) => {
         const isDev = configService.get<string>('NODE_ENV') === 'development';
