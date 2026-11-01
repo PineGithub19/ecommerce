@@ -6,7 +6,7 @@ import {
 } from 'typeorm';
 import { v7 as uuidv7 } from 'uuid';
 
-export abstract class BaseUUIDEntity {
+export abstract class BaseUuidEntity {
   @PrimaryColumn({
     type: 'uuid',
   })
@@ -19,9 +19,13 @@ export abstract class BaseUUIDEntity {
     }
   }
 
-  @CreateDateColumn()
+  @CreateDateColumn({
+    type: 'timestamptz',
+  })
   createdAt: Date;
 
-  @UpdateDateColumn()
+  @UpdateDateColumn({
+    type: 'timestamptz',
+  })
   updatedAt: Date;
 }
