@@ -10,7 +10,7 @@ import {
 } from 'typeorm';
 
 @Entity()
-@Index('user_default_address', ['user_id'], {
+@Index('user_default_address', ['userId'], {
   unique: true,
   where: '"is_default" = true AND "deleted_at" IS NULL',
 })
@@ -19,13 +19,13 @@ export class Address extends BaseUuidEntity {
   @Column({
     type: 'uuid',
   })
-  user_id: string;
+  userId: string;
 
   @Column({
     type: 'varchar',
     length: 100,
   })
-  full_name: string;
+  fullName: string;
 
   @Column({
     type: 'varchar',
@@ -38,14 +38,14 @@ export class Address extends BaseUuidEntity {
     length: 255,
     nullable: true,
   })
-  address_line1: string | null;
+  addressLine1: string | null;
 
   @Column({
     type: 'varchar',
     length: 255,
     nullable: true,
   })
-  address_line2: string | null;
+  addressLine2: string | null;
 
   @Column({
     type: 'varchar',
@@ -70,18 +70,18 @@ export class Address extends BaseUuidEntity {
     length: 20,
     nullable: true,
   })
-  postal_code: string | null;
+  postalCode: string | null;
 
   @Column({
     default: false,
   })
-  is_default: boolean;
+  isDefault: boolean;
 
   @DeleteDateColumn({
     type: 'timestamptz',
     nullable: true,
   })
-  deleted_at: Date | null;
+  deletedAt: Date | null;
 
   // Relations
   @ManyToOne(() => User, { onDelete: 'CASCADE' })
